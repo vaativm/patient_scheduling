@@ -1,0 +1,95 @@
+﻿@model WebAppointments.BusinessLogic.Entity.Visits
+
+@{
+    ViewData["Title"] = "Details";
+}
+<div class="header bg-primary pb-6">
+    <div class="container-fluid">
+        <div class="header-body">
+        <div class="row align-items-center py-4">
+            <div class="col-lg-6 col-7">
+                <h6 class="h2 text-white d-inline-block mb-0">Visit</h6>
+                <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+                    <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                    <li class="breadcrumb-item"><a href="~/"><i class="fas fa-home"></i></a></li>
+                    <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Visits">Visits</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Visit Detail</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--6">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <!-- Card header -->
+                <div class="card-header border-0">
+                    <h3 class="mb-0">Visit Detail</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <dl class="row">
+                            <dt class="col-sm-6">
+                                Participant Code
+                            </dt>
+                            <dd class="col-sm-6">
+                                @Model.Participant.StudyId
+                            </dd>
+
+                            @*
+                            @Html.DisplayFor(model => model.ParticipantCame ==1? "Yes":"No")
+                            *@
+
+                            <dt class="col-sm-6">
+                                Visit Type
+                            </dt>
+                            <dd class="col-sm-6">
+                                @Model.VisitSetting.VisitType
+                            </dd>
+                            <dt class="col-sm-6">
+                                Next Appointment
+                            </dt>
+                            <dd class="col-sm-6">
+                               
+                                @if (Model.NextAppointment.HasValue)
+                                {
+                                    @Model.NextAppointment.Value.ToString("dd/MM/yyyy")
+                                }
+                            </dd>
+
+
+                            <dt class="col-sm-6">
+                                Participant Came?
+                            </dt>
+                            <dd class="col-sm-6">
+                               @if (Model.ParticipantCame == 1)
+                                {@Html.Raw("Yes") }
+
+                                else if (Model.ParticipantCame == 2)
+                                { @Html.Raw("No")}
+                            
+
+                            </dd>
+                            <dt class="col-sm-6">
+                                Date Participant Came
+                            </dt>
+                            <dd class="col-sm-6">
+                              
+                                @if (Model.DateParticipantCame.HasValue)
+                                {
+                                    @Model.DateParticipantCame.Value.ToString("dd/MM/yyyy")
+                                }
+                            </dd>
+                        </dl>
+                    </div>    
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+

@@ -1,0 +1,131 @@
+﻿@model ReportViewModel
+
+@{
+    ViewData["Title"] = "Scheduled visits";
+}
+<div class="header bg-primary pb-6">
+    <div class="container-fluid">
+        <div class="header-body">
+            <div class="row align-items-center py-4">
+                <div class="col-lg-5 col-7">
+                    <h6 class="h2 text-white d-inline-block mb-0">REPORTS</h6>
+                    <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+                        <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                            <li class="breadcrumb-item"><a href="~/"><i class="fas fa-home"></i></a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Scheduled Visits</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-lg-7 col-5">
+                    <form class="form-inline mt--3">
+                        <div class="col-6">
+                            <div class="form-group mb-2">
+                                <label for="inlineFormInput" class="text-light mr-2">From date</label>
+                                <input name="fromVisitDate" type="date" placeholder="From date" class="mr-3 form-control-sm">
+                            </div>
+                            <div class="form-group">
+                                <label for="inlineFormInputGroup" class="text-light mr-2">Visit stage</label>
+                                <select asp-for="VisitSettingId" class="form-control-sm" asp-items="ViewBag.VisitSetting">
+                                    <option value="">--Select visit type--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group mb-2">
+                                <label for="inlineFormInput" class="text-light mr-2">To date</label>
+                                <input name="toVisitDate" type="date" placeholder="To date" class="mr-3 form-control-sm">
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn-sm btn-info">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid mt--6">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <!-- Card header -->
+                <div class="card-header border-0">
+                    <h3 class="mb-0">Scheduled Visits</h3>
+                </div>
+                <!-- Light table -->
+                <div class="table-responsive">
+                    <table id="visitsTable" class="table align-items-center table-flush">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Study ID</th>
+                                <th scope="col">Expected Date</th>
+                                <th scope="col">Visit Stage</th>
+                                <th scope="col">Medication</th>
+                            </tr>
+                        </thead>
+                        <tbody class="list">
+                            @{ int rowNumber = 0;}
+                            @foreach (var item in Model.Visits)
+                            {
+                                <tr>
+                                    <td>@{rowNumber++;} @rowNumber</td>
+                                    <td>@item.StudyId</td>
+                                    <td>
+                                        @String.Format("{0:dd/MM/yyyy}", item.VisitDate)
+                                    </td>
+                                    <td>@item.VisitType</td>
+                                    <td>@item.Medication</td>
+                                </tr>
+                            }
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
+
+@section Scripts{
+    <script>
+        $("#visitsTable").DataTable(
+            {
+                dom: 'BlTfrtip',
+                buttons: [
+                    {
+                        extend: 'copyHtml5',
+                        exportOptions: {
+                            //columns: [ 0, ':visible' ]
+                            columns: [0, 1, 2, 3]
+                        }
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3]
+                        }
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        exportOptions: {
+                            //columns: ':visible'
+                            columns: [0, 1, 2, 3]
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3]
+                        }
+                    },
+                    {
+                        extend: 'print',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3]
+                        }
+                    }
+                ]
+            }
+        );
+    </script>
+}

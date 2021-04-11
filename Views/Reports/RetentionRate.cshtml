@@ -1,0 +1,123 @@
+﻿@model List<AttendanceRegisterViewModel>
+
+@{
+    ViewData["Title"] = "Retention rate";
+}
+<div class="header bg-primary pb-6">
+    <div class="container-fluid">
+        <div class="header-body">
+            <div class="row align-items-center py-4">
+                <div class="col-lg-5 col-7">
+                    <h6 class="h2 text-white d-inline-block mb-0">REPORTS</h6>
+                    <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+                        <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                            <li class="breadcrumb-item"><a href="~/"><i class="fas fa-home"></i></a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Retention rate</li>
+                        </ol>
+                    </nav>
+                </div>
+                <!--<div class="col-lg-7 col-5">
+                    <form class="form-inline mt--3">-->
+                        @*<div class="col-6">                          
+                            <div class="form-group">
+                                <label for="inlineFormInputGroup" class="text-light mr-2">Visit stage</label>
+                                <select name="VisitSettingId" class="form-control-sm" asp-items="ViewBag.VisitSetting">
+                                    <option value="">--Select visit type--</option>
+                                </select>
+                            </div>
+                        </div>*@
+                        <!--<div class="col-6">                       
+                            <div class="form-group">
+                                <button type="submit" class="btn-sm btn-info">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>-->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid mt--6">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <!-- Card header -->
+                <div class="card-header border-0">
+                    <h3 class="mb-0">Retention rates <span class="font-weight-400"> as at  @String.Format("{0:dd-MM-yyyy}", @DateTime.Now.Date)</span></h3>
+                </div>
+                <!-- Light table -->
+                <div class="table-responsive">
+                    <table id="visitsTable" class="table align-items-center table-flush">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Visit Stage</th>
+                                <th scope="col">Expected</th>
+                                <th scope="col">Attended</th>
+                                <th scope="col">Percentage</th>
+                            </tr>
+                        </thead>
+                        <tbody class="list">
+                            @{ int rowNumber = 0;}
+                            @foreach (var item in Model)
+                            {
+                            <tr>
+                                <td>@{rowNumber++;} @rowNumber</td>
+                                <td>@item.VisitStage</td>
+                                <td>@item.Expected</td>
+                                <td>@item.Atttended</td>
+                                <td>@string.Format("{0:#,0.0}", @item.RetentionRate)</td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $("#visitsTable").DataTable(
+            {
+                dom: 'BlTfrtip',
+                buttons: [
+                    {
+                        extend: 'copyHtml5',
+                        exportOptions: {
+                            //columns: [ 0, ':visible' ]
+                            columns: [0, 1, 2, 3, 4]
+                        }
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4]
+                        }
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        exportOptions: {
+                            //columns: ':visible'
+                            columns: [0, 1, 2, 3, 4]
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4]
+                        }
+                    },
+                    {
+                        extend: 'print',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4]
+                        }
+                    }
+                ]
+            }
+        );
+    </script>
+}

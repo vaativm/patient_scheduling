@@ -1,0 +1,235 @@
+﻿@model WebAppointments.Models.DashboardView;
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="header bg-primary pb-6">
+    <div class="container-fluid">
+        <div class="header-body">
+        <div class="row align-items-center py-4">
+            <div class="col-lg-6 col-7">
+            <h6 class="h2 text-white d-inline-block mb-0">Dashboard</h6>
+            <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+                <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                <li class="breadcrumb-item"><a href="~/"><i class="fas fa-home"></i></a></li>
+                <li class="breadcrumb-item active"><a href="#">Dashboards</a></li>
+                </ol>
+            </nav>
+            </div>
+            @* <div class="col-lg-6 col-5 text-right">
+            <a href="#" class="btn btn-sm btn-neutral">New</a>
+            <a href="#" class="btn btn-sm btn-neutral">Filters</a>
+            </div> *@
+        </div>
+        <!-- Card stats -->
+            <div class="row">
+                <div class="col-xl-3 col-md-6">
+                    <a asp-controller="Participants" asp-action="Index">
+                        <div class="card card-stats">
+                            <!-- Card body -->
+                            <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <h5 class="card-title text-uppercase text-muted mb-0">Participants</h5>
+                                    <span class="h2 font-weight-bold mb-0">@Model.Participants</span>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow">
+                                        <i class="ni ni-single-02"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="mt-3 mb-0 text-sm">
+                                @* <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span> *@
+                                <span class="text-nowrap">Total participants</span>
+                            </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <a asp-controller="Visits" asp-action="Index">
+                        <div class="card card-stats">
+                            <!-- Card body -->
+                            <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <h5 class="card-title text-uppercase text-muted mb-0">Visits</h5>
+                                    <span class="h2 font-weight-bold mb-0">@Model.Visits</span>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="icon icon-shape bg-gradient-orange text-white rounded-circle shadow">
+                                        <i class="ni ni-building"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="mt-3 mb-0 text-sm">
+                                @* <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span> *@
+                                <span class="text-nowrap">All Visits</span>
+                            </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <a asp-controller="Visits" asp-action="Schedulled">
+                        <div class="card card-stats">
+                            <!-- Card body -->
+                            <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                <h5 class="card-title text-uppercase text-muted mb-0">Scheduled</h5>
+                                <span class="h2 font-weight-bold mb-0">@Model.Schedulled</span>
+                                </div>
+                                <div class="col-auto">
+                                <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
+                                    <i class="ni ni-watch-time"></i>
+                                </div>
+                                </div>
+                            </div>
+                            <p class="mt-3 mb-0 text-sm">
+                                @* <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span> *@
+                                <span class="text-nowrap">Scheduled for this week</span>
+                            </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <a asp-controller="Visits" asp-action="Missed">
+                        <div class="card card-stats">
+                            <!-- Card body -->
+                            <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                <h5 class="card-title text-uppercase text-muted mb-0">Missed</h5>
+                                <span class="h2 font-weight-bold mb-0">@Model.Missed</span>
+                                </div>
+                                <div class="col-auto">
+                                <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
+                                    <i class="ni ni-button-pause"></i>
+                                </div>
+                                </div>
+                            </div>
+                            <p class="mt-3 mb-0 text-sm">
+                                @* <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span> *@
+                                <span class="text-nowrap">Total Missed Appointments</span>
+                            </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Page content -->
+<div class="container-fluid mt--6">
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card bg-default">
+                <div class="card-header bg-transparent"></div>
+                <div class="card-body row">
+                    <div class="col-sm-8">
+                        <canvas id="barChart" width="700" height="400"></canvas>
+                    </div>
+                    <div class="col-sm-4">
+                        <canvas id="pieChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    
+</div>
+
+@section Scripts{
+    <script>
+        $.get("Home/GetChartData", function(data, status){
+            var ctx = document.getElementById("barChart");
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: data.labels,
+                    datasets: [{
+                        //label: '# of Participants',
+                        data: data.data,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                        ],
+                        borderColor: [
+                            'rgba(255,99,132,1)',
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: false,
+                    scales: {
+                        xAxes: [{
+                            ticks: {
+                                maxRotation: 90,
+                                minRotation: 80
+                            }
+                        }],
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    },
+                    title: {
+                    display: true,
+                    text: 'Number of Participants per visit category',
+                    position: 'top'
+                },
+                }
+            });
+        });
+        var canvas = document.getElementById("pieChart");
+        ctx = canvas.getContext('2d');
+        // Global Options:
+        //Chart.defaults.global.defaultFontColor = 'black';
+        Chart.defaults.global.defaultFontSize = 15;
+        var myBarChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ["Missed Appointments", "Attendend Apointments"],
+                datasets: [
+                    {
+                        fill: true,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.6)',
+                            'rgba(54, 162, 235, 0.6)',
+                        ],
+                        data: [5, 95],
+                        borderColor:[
+                            'rgba(255,99,132,1)',
+                            'rgba(54, 162, 235, 1)',
+                        ],
+                        borderWidth: [2,2]
+                    }
+                ]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: 'Apointments by participants',
+                    position: 'top'
+                },
+                rotation: -0.7 * Math.PI,
+                legend: {
+                    display: true,
+                    position: 'bottom',
+                    labels: {
+                        fontColor: "#fff",
+                    }
+                }
+            }
+        });
+
+    </script>
+}

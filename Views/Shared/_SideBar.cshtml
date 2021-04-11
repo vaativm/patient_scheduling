@@ -1,0 +1,97 @@
+<!-- Sidenav -->
+<nav class="sidenav navbar navbar-vertical  fixed-left  navbar-expand-xs navbar-light bg-white" id="sidenav-main">
+    <div class="scrollbar-inner">
+        <!-- Brand -->
+        <div class="sidenav-header  align-items-center">
+            <a class="navbar-brand" href="javascript:void(0)">
+                <span class="navbar-brand-img">Scheduler</span>
+            </a>
+        </div>
+        <div class="navbar-inner">
+            <!-- Collapse -->
+            <div class="collapse navbar-collapse" id="sidenav-collapse-main">
+                <!-- Nav items -->
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="~/">
+                            <i class="ni ni-tv-2 text-primary"></i>
+                            <span class="nav-link-text">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Participants" asp-action="Index">
+                            <i class="ni ni-single-02 text-yellow"></i>
+                            <span class="nav-link-text">Participants</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Visits" asp-action="Index">
+                            <i class="ni ni-building text-red"></i>
+                            <span class="nav-link-text">Visits</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#reports" aria-expanded="false" data-toggle="collapse" class="collapsed nav-link">
+                            <i class="fa fa-table text-blue"></i>Reports
+                        </a>
+                        <ul id="reports" class="list-unstyled collapse" style="">
+                            <li class="nav-item pl-5">
+                                <a class="nav-link" asp-controller="Reports" asp-action="Index">
+                                    <span class="nav-link-text">Visits</span>
+                                </a>
+                            </li>
+                            <li class="nav-item pl-5">
+                                <a class="nav-link" asp-controller="Reports" asp-action="ScheduledVisits">
+                                    <span class="nav-link-text">Scheduled visits</span>
+                                </a>
+                            </li>
+                            <li class="nav-item pl-5">
+                                <a class="nav-link" asp-controller="Reports" asp-action="RetentionRate">
+                                    <span class="nav-link-text">Retention rate</span>
+                                </a>
+                            </li>
+                            @if (User.IsInRole("Super Admin") || User.IsInRole("admin"))
+                            {
+                                <li class="nav-item pl-5">
+                                    <a class="nav-link" asp-controller="Reports" asp-action="PSFReport">
+                                        <span class="nav-link-text">PSF status</span>
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Facilities" asp-action="Index">
+
+                            <i class="fa fa-medkit text-blue"></i>
+                            <span class="nav-link-text">Facilities</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="VisitSettings" asp-action="Index">
+                            <i class="ni ni-settings-gear-65 text-primary"></i>
+                            <span class="nav-link-text">Visit Settings</span>
+                        </a>
+                    </li>
+                    @if (User.IsInRole("Super Admin"))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Users" asp-action="Index">
+                                <i class="ni ni-single-02 text-success"></i>
+                                <span class="nav-link-text">Users</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Utilities" asp-action="Index">
+                                <i class="ni ni-single-02 text-success"></i>
+                                <span class="nav-link-text">Tools</span>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,134 @@
+﻿@model WebAppointments.BusinessLogic.Entity.Participants
+
+@{
+    ViewData["Title"] = "Edit";
+}
+<div class="header bg-primary pb-6">
+    <div class="container-fluid">
+        <div class="header-body">
+            <div class="row align-items-center py-4">
+                <div class="col-lg-6 col-7">
+                    <h6 class="h2 text-white d-inline-block mb-0">Participants</h6>
+                    <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+                        <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                            <li class="breadcrumb-item"><a href="~/"><i class="fas fa-home"></i></a></li>
+                            <li class="breadcrumb-item"><a asp-controller="Participants" asp-action="Index">Participants</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Edit Participant</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--6">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <!-- Card header -->
+                <div class="card-header border-0">
+                    <h3 class="mb-0">Edit Participant</h3>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Edit">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="Id" />
+                        <div class="pl-lg-4">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" asp-for="StudyId">Study ID</label>
+                                        <input asp-for="StudyId" class="form-control" />
+                                        <span asp-validation-for="StudyId" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" asp-for="Gender">Gender</label>
+                                        <select asp-for="Gender" class="form-control">
+                                            <option value="">--Select--</option>
+                                            <option value="1">Male</option>
+                                            <option value="2">Female</option>
+                                        </select>
+                                        <span asp-validation-for="Gender" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" asp-for="EnrollmentDate">Enrollment Date</label>
+                                        <input asp-for="EnrollmentDate" type="date" class="form-control" />
+                                        <span asp-validation-for="EnrollmentDate" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+
+                                        <label class="form-control-label" asp-for="FacilityId">Facility </label>
+
+                                        <select asp-for="FacilityId" class="form-control" asp-items="ViewBag.Facility">
+                                            <option value="">--Select Facility--</option>
+                                        </select>
+                                        <span asp-validation-for="FacilityId" class="text-danger"></span>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" asp-for="MobilePhone">Phone</label>
+                                        <input asp-for="MobilePhone" class="form-control" />
+                                        <span asp-validation-for="MobilePhone" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" asp-for="AlternateContactName">Alternate Contact Name</label>
+                                        <input asp-for="AlternateContactName" class="form-control" />
+                                        <span asp-validation-for="AlternateContactName" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" asp-for="AlternateMobilePhone">Alternate Mobile Phone</label>
+                                        <input asp-for="AlternateMobilePhone" class="form-control" />
+                                        <span asp-validation-for="AlternateMobilePhone" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" asp-for="IsPSF">
+                                            <label class="form-check-label" asp-for="IsPSF">
+
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group text-right">
+                                        <input type="submit" value="Save" class="btn btn-primary" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

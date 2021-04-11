@@ -1,0 +1,105 @@
+﻿@model WebAppointments.BusinessLogic.Entity.Participants
+
+@{
+    ViewData["Title"] = "Details";
+}
+<div class="header bg-primary pb-6">
+    <div class="container-fluid">
+        <div class="header-body">
+        <div class="row align-items-center py-4">
+            <div class="col-lg-6 col-7">
+                <h6 class="h2 text-white d-inline-block mb-0">Participants</h6>
+                <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+                    <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                    <li class="breadcrumb-item"><a href="~/"><i class="fas fa-home"></i></a></li>
+                    <li class="breadcrumb-item"><a asp-controller="Participants" asp-action="Index">Participants</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">View Participant</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--6">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <!-- Card header -->
+                <div class="card-header border-0">
+                    <h3 class="mb-0">Participant's Detail</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <dl class="row">
+                            <dt class="col-sm-4">
+                                Study ID
+                            </dt>
+                            <dd class="col-sm-8">
+                                @Html.DisplayFor(model => model.StudyId)
+                            </dd>
+                            <dt class="col-sm-4">
+                                Gender
+                            </dt>
+                            <dd class="col-sm-8">
+                                @if (Model.Gender == 1)
+                                {@Html.Raw("Male") ;
+                            }
+                            else if (Model.Gender == 2)
+                            { @Html.Raw("Female")
+                        }
+                            </dd>
+                            <dt class="col-sm-4">
+                                Enrollment Date
+                            </dt>
+                            <dd class="col-sm-8">
+                                @if (Model.EnrollmentDate.HasValue)
+                                {
+                                    @Model.EnrollmentDate.Value.ToString("dd/MM/yyyy")
+                                }
+                            </dd>
+                            <dt class="col-sm-4">
+                                Facility From
+                            </dt>
+                            <dd class="col-sm-8">
+                                @Html.DisplayFor(model => model.Facility.Name)
+                            </dd>
+                            <dt class="col-sm-4">
+                                Phone
+                            </dt>
+                            <dd class="col-sm-8">
+                                @Html.DisplayFor(model => model.MobilePhone)
+                            </dd>
+                            <dt class="col-sm-4">
+                                Is PSF
+                            </dt>
+                            <dd class="col-sm-8">
+                                @Html.DisplayFor(model => model.IsPSF)
+                            </dd>
+
+                        </dl>
+                        <div class="col-12">
+                            <h3>Visits</h3>
+                            <hr>
+                        </div>
+                        @foreach (var item in Model.Visits)
+                        {
+                            <div class="col-xl-3 col-md-6">
+                                <a asp-controller="Visits" asp-action="Details" asp-route-id="@item.Id">
+                                    <div class="card bg-success card-stats">
+                                        <div class="card-body">
+                                            <h4>@item.VisitDate</h4>
+                                            <span>@item.VisitSetting.VisitType</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <partial name="_Footer" /> -->
+</div>

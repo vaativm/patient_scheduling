@@ -1,0 +1,200 @@
+﻿@model WebAppointments.BusinessLogic.Entity.Visits
+
+@{
+    ViewData["Title"] = "Edit";
+}
+<div class="header bg-primary pb-6">
+    <div class="container-fluid">
+        <div class="header-body">
+            <div class="row align-items-center py-4">
+                <div class="col-lg-6 col-7">
+                    <h6 class="h2 text-white d-inline-block mb-0">Visit</h6>
+                    <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+                        <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                            <li class="breadcrumb-item"><a href="~/"><i class="fas fa-home"></i></a></li>
+                            <li class="breadcrumb-item"><a asp-controller="Visits" asp-action="Index">Visits</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Edit Visit</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--6">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <!-- Card header -->
+                <div class="card-header border-0">
+                    <h3 class="mb-0">Edit Visits</h3>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Edit">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="Id" />
+                        <div class="pl-lg-4">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label asp-for="ParticipantId" class="form-control-label">Study Id</label>
+                                        <select id="participant-id" asp-for="ParticipantId" class="form-control" asp-items="ViewBag.Participant">
+                                            <option value="">--Select Participant--</option>
+                                        </select>
+                                        <span asp-validation-for="ParticipantId" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" asp-for="VisitDate">Expected Date</label>
+                                        <input asp-for="VisitDate" type="date" class="form-control" />
+                                        <span asp-validation-for="VisitDate" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label asp-for="VisitSettingId" class="form-control-label">Visit Type</label>
+                                        <select asp-for="VisitSettingId" class="form-control" asp-items="ViewBag.VisitSetting">
+                                            <option value="">--Select Stage--</option>
+                                        </select>
+                                        <span asp-validation-for="VisitSettingId" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" asp-for="ParticipantCame">Participant Came?</label>
+                                        <select asp-for="ParticipantCame" class="form-control">
+                                            <option value="">--Select--</option>
+                                            <option value="1">Yes</option>
+                                            <option value="2">No</option>
+                                        </select>
+                                        <span asp-validation-for="ParticipantCame" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" asp-for="DateParticipantCame">Date Participant Came</label>
+                                        <input asp-for="DateParticipantCame" type="date" class="form-control" />
+                                        <span asp-validation-for="DateParticipantCame" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" asp-for="VisitOutcome">VisitOutcome ?</label>
+                                        <select asp-for="VisitOutcome" class="form-control">
+                                            <option value="">--Select--</option>
+                                            <option value="1">Complete</option>
+                                            <option value="2">Incomplete</option>
+                                        </select>
+                                        <span asp-validation-for="VisitOutcome" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" asp-for="OutcomeComment">Outcome Comment</label>
+                                        <input asp-for="OutcomeComment" class="form-control" />
+                                        <span asp-validation-for="OutcomeComment" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" asp-for="NextAppointment">Next Appointment Date</label>
+                                        <input asp-for="NextAppointment" type="date" class="form-control" />
+                                        <span asp-validation-for="NextAppointment" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <div class="form-group text-right">
+                            <input type="submit" value="Save" class="btn btn-primary" />
+                        </div>
+                    </form>
+                    <table id="participant-schedule" class="table align-items-center table-flush">
+                        <tbody id="schedule">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles{
+    <link href="~/assets/vendor/select2/dist/css/select2.min.css" rel="stylesheet" />
+}
+
+@section Scripts {
+    <script src="~/assets/vendor/select2/dist/js/select2.full.min.js"></script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function () {
+            $("#ParticipantId").select2();
+            $("#VisitSettingId").select2();
+
+            var participantId = $("#participant-id").val();
+
+            function getSchedule(participantId) {
+                var uri = '/Visits/GetScheduledVisitToEdit';
+                const tableHead = "<thead class='thead-light'>" +
+                    "<tr>" +
+                    "<th scope='col'>Time Point</th>" +
+                    "<th scope='col'>Window Opens</th>" +
+                    "<th scope='col'>Window Closes</th>" +
+                    "<th scope='col'>Assessment Completion Status</th>" +
+                    "<th scope='col'>Date Completed</th>" +
+                    "<th scope='col'>Reason</th>" +
+                    "</tr>" +
+                    +"</thead>"
+
+                $.ajax
+                    ({
+                        type: "GET",
+                        accepts: 'application/json',
+                        url: uri,
+                        contentType: 'application/json',
+                        data: { participantId },
+                        success: function (data) {
+                            const table = $("#participant-schedule")
+                            const tableBody = $("#schedule");
+
+                            table.empty();
+                            tableBody.empty();
+                            table.append(tableHead);
+
+                            $.each(data, function (key, item) {
+                                const tr = "<tr>" +
+                                    "<td>" + item.visitType + "</td>" +
+                                    "<td>" + item.windowOpens + "</td>" +
+                                    "<td>" + item.windowCloses + "</td>" +
+                                    "<td>" + item.assessmentCompletion + "</td>" +
+                                    "<td>" + item.completionDate + "</td>" +
+                                    "<td>" + item.comment + "</td>" +
+                                    "</tr>";
+                                tableBody.append(tr);
+                            });
+
+                            table.append(tableBody);
+                        },
+                        error: function (data) {
+                            alert(data.error);
+                        }
+                    });
+            }
+
+            getSchedule(participantId);
+        });
+    </script>
+}

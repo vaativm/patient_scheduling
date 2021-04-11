@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Scheduller">
+    <title>@ViewData["Title"]</title>
+    <!-- Favicon -->
+    <link rel="icon" href="~/assets/img/brand/favicon.png" type="image/png">
+    <!-- Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
+    <!-- Icons -->
+    <link rel="stylesheet" href="~/assets/vendor/nucleo/css/nucleo.css" type="text/css">
+    <link rel="stylesheet" href="~/assets/vendor/fortawesome/fontawesome-free/css/all.min.css" type="text/css">
+
+    <link href="~/assets/vendor/datatable/datatables.min.css" rel="stylesheet" />
+    <link href="~/assets/vendor/datatable/dataTables-1.10.21/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="~/assets/vendor/datatable/buttons-1.6.2/css/buttons.bootstrap4.min.css" rel="stylesheet">
+    <!-- Page plugins -->
+    <!-- Argon CSS -->
+    <link rel="stylesheet" href="~/assets/css/argon.css?v=1.2.0" type="text/css">
+    <link href="~/css/site.css" rel="stylesheet" />
+    @RenderSection("Styles", required: false)
+</head>
+
+<body>
+    <partial name="_SideBar" />
+    <!-- Main content -->
+    <div class="main-content" id="panel">
+        <partial name="_Header" />
+        <!-- Page content -->
+        @RenderBody()
+    </div>
+    <partial name="_Footer" />
+    <!-- Argon Scripts -->
+    <!-- Core -->
+    <script src="~/assets/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="~/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/assets/vendor/js-cookie/js.cookie.js"></script>
+    <script src="~/assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js"></script>
+    <script src="~/assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script>
+    <!-- Optional JS -->
+    <script src="~/assets/vendor/chart.js/dist/Chart.min.js"></script>
+    <script src="~/assets/vendor/chart.js/dist/Chart.extension.js"></script>
+    <script src="~/assets/vendor/datatable/datatables.min.js"></script>
+    <script src="~/assets/vendor/datatable/dataTables-1.10.21/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/assets/vendor/datatable/buttons-1.6.2/js/buttons.bootstrap4.min.js"></script>
+    <script src="~/assets/vendor/datatable/buttons-1.6.2/js/buttons.flash.min.js"></script>
+    <script src="~/assets/vendor/datatable/buttons-1.6.2/js/buttons.html5.min.js"></script>
+    <script src="~/assets/vendor/datatable/buttons-1.6.2/js/buttons.print.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <!-- Argon JS -->
+    <script src="~/assets/js/argon.js?v=1.2.0"></script>
+    
+    @RenderSection("Scripts", required: false)
+</body>
+
+</html>

@@ -1,0 +1,75 @@
+﻿@model WebAppointments.BusinessLogic.Entity.Participants
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<div class="header bg-primary pb-6">
+    <div class="container-fluid">
+        <div class="header-body">
+            <div class="row align-items-center py-4">
+                <div class="col-lg-6 col-7">
+                    <h6 class="h2 text-white d-inline-block mb-0">Participants</h6>
+                    <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+                        <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                            <li class="breadcrumb-item"><a href="~/"><i class="fas fa-home"></i></a></li>
+                            <li class="breadcrumb-item"><a asp-controller="Participants" asp-action="Index">Participants</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Delete Participant</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--6">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <!-- Card header -->
+                <div class="card-header border-0">
+                    <h3 class="mb-0">Participant's Detail</h3>
+                </div>
+                <div class="card-body">
+                    <div class="">
+                        <dl class="row">
+                            <dt class="col-sm-4">
+                                Study ID
+                            </dt>
+                            <dd class="col-sm-7">
+                                @Html.DisplayFor(model => model.StudyId)
+                            </dd>
+                            <dt class="col-sm-4">
+                                Gender
+                            </dt>
+                            <dd class="col-sm-7">
+                                @Html.DisplayFor(Model => Model.Gender)
+                            </dd>
+                            <dt class="col-sm-4">
+                                Enrollment Date
+                            </dt>
+                            <dd class="col-sm-7">
+                                @Html.DisplayFor(model => model.EnrollmentDate)
+                            </dd>
+                            <dt class="col-sm-4">
+                                Facility From
+                            </dt>
+
+                            <dt class="col-sm-4">
+                                Phone
+                            </dt>
+                            <dd class="col-sm-7">
+                                @Html.DisplayFor(model => model.MobilePhone)
+                            </dd>
+                    </div>
+                    <form asp-action="Delete">
+                        <input type="hidden" asp-for="Id" />
+                        <input type="submit" value="Delete" class="btn btn-danger" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <partial name="_Footer" /> -->
+</div>

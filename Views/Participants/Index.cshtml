@@ -1,0 +1,153 @@
+﻿@model IEnumerable<WebAppointments.BusinessLogic.Entity.Participants>
+@{
+    ViewData["Title"] = "Participants";
+}
+<div class="header bg-primary pb-6">
+    <div class="container-fluid">
+        <div class="header-body">
+            <div class="row align-items-center py-4">
+                <div class="col-lg-6 col-7">
+                    <h6 class="h2 text-white d-inline-block mb-0">Participants</h6>
+                    <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+                        <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                            <li class="breadcrumb-item"><a href="~/"><i class="fas fa-home"></i></a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Participants</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-lg-6 col-5 text-right">
+                    <a asp-action="Create" class="btn btn-sm btn-neutral">Add New</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--6">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <!-- Card header -->
+                <div class="card-header border-0">
+                    <h3 class="mb-0">Participants</h3>
+                    @if (ViewBag.Message != null)
+                    {
+                        <p class="card-category alert-sucess" style="float: right;">@Html.Raw(ViewBag.Message)</p>
+                    }
+                </div>
+                <!-- Light table -->
+                <div class="table-responsive">
+                    <table id="participantTable" class="table align-items-center table-flush">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">Study ID</th>
+                                <th scope="col">Facility From</th>
+                                <th scope="col">Gender</th>
+                                <th scope="col">Enrollment Date</th>
+
+                                <th scope="col">Phone</th>
+                                <th scope="col">Alternate Contact Name</th>
+                                <th scope="col">Alternate Mobile Phone</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody class="list">
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <th scope="row">
+                                        <div class="media align-items-center">
+                                            <a href="#" class="avatar rounded-circle mr-3">
+                                                <img alt="Image placeholder" src="../assets/img/theme/HumanHead2.jpg">
+                                            </a>
+                                            <div class="media-body">
+                                                <span class="name mb-0 text-sm">@item.StudyId</span>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <td>@(item.Facility.Name)</td>
+                                    <td> @(item.Gender == 1 ? "Male":"Female" )</td>
+                                    <td>
+                                        @if (item.EnrollmentDate.HasValue)
+                                        {
+                                            @item.EnrollmentDate.Value.ToString("dd-MM-yyyy")
+                                        }
+                                    </td>
+                                    <td>@item.MobilePhone</td>
+                                    <td>@item.AlternateContactName</td>
+                                    <td>@item.AlternateMobilePhone</td>
+                                    <td class="text-right">
+                                        <div class="dropdown">
+                                            <a class="btn btn-sm text-dark" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Actions <i class="fas fa-ellipsis-v"></i>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                                <a class="dropdown-item" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                                                <a class="dropdown-item" asp-action="LogVisit" asp-route-id="@item.Id">Log Visit</a>
+                                                @{
+                                                    if (User.IsInRole("Super Admin") || User.IsInRole("admin"))
+                                                    {
+                                                        <a class="dropdown-item" asp-action="LogPSFVisit" asp-route-id="@item.Id">Log PSF Visit</a>
+                                                    }
+                                                }
+                                                <a class="dropdown-item" asp-action="Details" asp-route-id="@item.Id">Visit History</a>
+                                                <a class="dropdown-item" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+@section Scripts{
+    <script>
+        $("#participantTable").DataTable(
+            {
+                dom: 'BlTfrtip',
+                buttons: [
+                    {
+                        extend: 'copyHtml5',
+                        exportOptions: {
+                            //columns: [ 0, ':visible' ]
+                            columns: [0, 1, 2, 3, 4, 5, 6]
+                        }
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6]
+                        }
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        exportOptions: {
+                            //columns: ':visible'
+                            columns: [0, 1, 2, 3, 4, 5, 6]
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6]
+                        }
+                    },
+                    {
+                        extend: 'print',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6]
+                        }
+                    }
+                ]
+            }
+        );
+    </script>
+}

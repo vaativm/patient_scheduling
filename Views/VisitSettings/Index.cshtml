@@ -1,0 +1,81 @@
+@model IEnumerable<WebAppointments.BusinessLogic.Entity.VisitSettings>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="header bg-primary pb-6">
+    <div class="container-fluid">
+        <div class="header-body">
+        <div class="row align-items-center py-4">
+            <div class="col-lg-6 col-7">
+                <h6 class="h2 text-white d-inline-block mb-0">Visit Settings</h6>
+                <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+                    <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                    <li class="breadcrumb-item"><a href="~/"><i class="fas fa-home"></i></a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Visit Settings</li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="col-lg-6 col-5 text-right">
+                @* <a asp-action="Create" class="btn btn-sm btn-neutral">Add New</a> *@
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--6">
+    <div class="row">
+        <div class="col-sm-9 offset-1">
+            <div class="card">
+                <!-- Card header -->
+                <div class="card-header border-0">
+                    <h3 class="mb-0">Visit Settings</h3>
+                    @if (ViewBag.Message != null)
+                    {
+                        <p class="card-category alert-sucess" style="float: right;">@Html.Raw(ViewBag.Message)</p>
+                    }                
+                </div>
+                <!-- Light table -->
+                <div class="table-responsive">
+                <table class="table align-items-center table-flush">
+                    <thead class="thead-light">
+                    <tr>
+                        <th scope="col">Window Period</th>
+                        <th scope="col">Visit Type</th>
+                        <th scope="col">Comments</th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody class="list">
+                        @foreach (var item in Model) {
+                            <tr>
+                                <td>
+                                    @item.WindowPeriod
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.VisitType)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Comments)
+                                </td>
+                                <td class="text-right">
+                                    <div class="dropdown">
+                                        <a class="btn btn-sm text-dark" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Actions <i class="fas fa-ellipsis-v"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                            <a class="dropdown-item" asp-action="Delete" asp-route-id="@item.Id">Details</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+  
+</div>

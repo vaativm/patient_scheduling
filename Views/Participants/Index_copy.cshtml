@@ -1,0 +1,61 @@
+﻿@model IEnumerable<WebAppointments.BusinessLogic.Entity.Participants>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h3>Participant Details</h3>
+
+<p>
+    
+    <a asp-action="Create" class="btn btn-outline-success"><i class="far fa-plus-square"></i>Participant</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.StudyId)
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.ParticipantCode)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.EnrollmentDate)
+            </th>
+       
+            <th>
+                @Html.DisplayNameFor(model => model.MobilePhone)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.StudyId)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.ParticipantCode)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.EnrollmentDate)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.FacilityFrom)
+            </td>*@
+            @*<td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.MobilePhone)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
